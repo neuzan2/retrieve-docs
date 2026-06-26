@@ -1,8 +1,6 @@
 name: Deploy docs to GitHub Pages
 
-# Builds the staticrypt-encrypted single-file guide in CI using the
-# STATICRYPT_PASSWORD repo secret, then deploys it to GitHub Pages.
-# The encrypted page is generated fresh on every run (not committed).
+# Builds the Docusaurus site and deploys it to GitHub Pages (public).
 
 on:
   push:
@@ -29,14 +27,12 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Build encrypted page
-        env:
-          STATICRYPT_PASSWORD: ${{ secrets.STATICRYPT_PASSWORD }}
-        run: npm run build:secure
+      - name: Build Docusaurus site
+        run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: public
+          path: build
 
   deploy:
     needs: build

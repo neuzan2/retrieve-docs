@@ -11,8 +11,7 @@
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids",
-    "build:secure": "node scripts/build-encrypted.js"
+    "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.1",
@@ -27,11 +26,7 @@
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.10.1",
-    "@docusaurus/types": "3.10.1",
-    "markdown-it": "^14.2.0",
-    "markdown-it-anchor": "^9.2.0",
-    "mermaid": "^11.16.0",
-    "staticrypt": "^3.5.4"
+    "@docusaurus/types": "3.10.1"
   },
   "browserslist": {
     "production": [

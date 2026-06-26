@@ -24,3 +24,6 @@ yarn-error.log*
 .staticrypt-src.html
 .staticrypt-out/
 standalone.html
+
+# encrypted page is built in CI, not committed
+/public/

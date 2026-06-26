@@ -1,8 +1,8 @@
 name: Deploy docs to GitHub Pages
 
-# Publishes the staticrypt-encrypted single-file guide in ./public.
-# (The Docusaurus project still lives in this repo for editing/local preview,
-#  but the PUBLIC site is the password-gated encrypted page.)
+# Builds the staticrypt-encrypted single-file guide in CI using the
+# STATICRYPT_PASSWORD repo secret, then deploys it to GitHub Pages.
+# The encrypted page is generated fresh on every run (not committed).
 
 on:
   push:
@@ -19,16 +19,31 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build encrypted page
+        env:
+          STATICRYPT_PASSWORD: ${{ secrets.STATICRYPT_PASSWORD }}
+        run: npm run build:secure
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: public
       - id: deployment
         uses: actions/deploy-pages@v4

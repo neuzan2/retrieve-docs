@@ -30,6 +30,7 @@
     "@docusaurus/types": "3.10.1",
     "markdown-it": "^14.2.0",
     "markdown-it-anchor": "^9.2.0",
+    "mermaid": "^11.16.0",
     "staticrypt": "^3.5.4"
   },
   "browserslist": {

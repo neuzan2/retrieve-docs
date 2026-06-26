@@ -18,3 +18,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# staticrypt build artifacts
+.staticrypt.json
+.staticrypt-src.html
+.staticrypt-out/
+standalone.html
